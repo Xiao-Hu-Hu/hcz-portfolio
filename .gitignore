@@ -1,0 +1,7 @@
+node_modules
+dist
+dist-verify
+.npm-cache
+dev-server*.log
+*.tsbuildinfo
+*.local
