@@ -7,10 +7,16 @@ export interface ContactItem {
   icon: LucideIcon;
 }
 
+export interface SkillItem {
+  name: string;
+  /** 'core' items get visually highlighted */
+  level: 'core' | 'familiar' | 'learning';
+}
+
 export interface SkillGroup {
   title: string;
   summary: string;
-  items: string[];
+  items: SkillItem[];
   accent: 'cyan' | 'lime' | 'amber' | 'rose';
 }
 
@@ -19,6 +25,7 @@ export interface Project {
   period: string;
   stack: string[];
   description: string;
+  /** Use **text** markers around keywords for bold rendering */
   highlights: string[];
   tags: string[];
   metrics: Array<{
@@ -26,6 +33,13 @@ export interface Project {
     value: string;
     detail?: string;
   }>;
+  github?: string;
+}
+
+export interface SocialLink {
+  label: string;
+  href: string;
+  icon: LucideIcon;
 }
 
 export interface ProfileData {
@@ -45,4 +59,5 @@ export interface ProfileData {
   skillGroups: SkillGroup[];
   projects: Project[];
   strengths: string[];
+  socialLinks: SocialLink[];
 }
