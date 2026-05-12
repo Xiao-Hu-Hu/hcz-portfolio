@@ -133,11 +133,21 @@ export function ThreadsBackground() {
     window.addEventListener('pointermove', updatePointer);
     window.addEventListener('pointerleave', clearPointer);
 
+    function handleVisibility() {
+      if (document.hidden) {
+        window.cancelAnimationFrame(raf);
+      } else {
+        raf = window.requestAnimationFrame(draw);
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       window.cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointermove', updatePointer);
       window.removeEventListener('pointerleave', clearPointer);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 

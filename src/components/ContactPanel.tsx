@@ -1,5 +1,6 @@
 import { Check, Copy, Download, ExternalLink, Mail, Phone, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { copyWithFallback } from '../lib/clipboard';
 import { profile } from '../data/profile';
 
 export type ContactType = 'email' | 'phone';
@@ -26,20 +27,6 @@ const methods = {
     Icon: Mail,
   },
 } as const;
-
-function copyWithFallback(value: string) {
-  return navigator.clipboard.writeText(value).catch(() => {
-    const textarea = document.createElement('textarea');
-    textarea.value = value;
-    textarea.setAttribute('readonly', 'true');
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-  });
-}
 
 export function ContactPanel({ open, initialType = 'email', onClose }: ContactPanelProps) {
   const [copied, setCopied] = useState<ContactType | null>(null);

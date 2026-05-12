@@ -1,4 +1,4 @@
-import { Boxes, Check, GitBranch, TimerReset } from 'lucide-react';
+import { Boxes, Check, ExternalLink, GitBranch, TimerReset } from 'lucide-react';
 import { profile } from '../data/profile';
 import { ScrollReveal } from './ScrollReveal';
 import { SectionTitle } from './SectionTitle';
@@ -11,7 +11,6 @@ export function ProjectsSection() {
         <SectionTitle
           eyebrow="Projects"
           title="项目经历"
-          description="围绕真实业务系统展示工程拆分、数据链路、AI 编排、异步处理、流式交互和模型推理能力。"
         />
       </ScrollReveal>
 
@@ -43,6 +42,18 @@ export function ProjectsSection() {
                         </span>
                       ))}
                     </div>
+                    {project.github && (
+                      <a
+                        className="mt-4 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white/78 transition hover:border-cyanx/40 hover:bg-cyanx/10 hover:text-white"
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <GitBranch size={16} />
+                        View on GitHub
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
                     <div className="mt-6 grid gap-3 sm:grid-cols-3">
                       {project.metrics.map((metric) => (
                         <button key={metric.label} type="button" className="metric-card">

@@ -13,7 +13,6 @@ export function TechStackSection() {
         <SectionTitle
           eyebrow="Tech Stack"
           title="技术栈矩阵"
-          description="按能力域组织技术关键词，既展示掌握范围，也强调后端工程与 AI 应用结合的落地路径。"
         />
       </ScrollReveal>
 

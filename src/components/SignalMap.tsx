@@ -147,8 +147,21 @@ export function SignalMap() {
     cnv.addEventListener('pointerdown', selectNearestNode);
     window.addEventListener('resize', resize);
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          raf = window.requestAnimationFrame(draw);
+        } else {
+          window.cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(cnv);
+
     return () => {
       window.cancelAnimationFrame(raf);
+      observer.disconnect();
       cnv.removeEventListener('pointermove', updatePointer);
       cnv.removeEventListener('pointerleave', clearPointer);
       cnv.removeEventListener('pointerdown', selectNearestNode);

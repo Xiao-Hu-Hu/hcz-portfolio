@@ -86,6 +86,7 @@ export const profile: ProfileData = {
       description:
         '负责设计并开发基于 Go 的电商后端系统，覆盖商品、购物车、订单、用户中心等核心交易链路，并建设 AI 智能客服模块，实现商品问答、辅助推荐、多轮会话与知识检索增强能力。',
       tags: ['Agent Service', 'Tool Calling', 'RAG', '交易链路解耦'],
+      github: 'https://github.com/Xiao-Hu-Hu/gin_mall_tmp',
       metrics: [
         { label: '业务模块', value: '4+', detail: '商品、购物车、订单、用户中心核心链路' },
         { label: 'AI 编排', value: 'Tool + Retriever', detail: 'ChatModel、商城 Tool 与知识检索组合编排' },

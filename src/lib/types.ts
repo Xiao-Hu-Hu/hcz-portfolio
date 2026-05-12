@@ -7,16 +7,10 @@ export interface ContactItem {
   icon: LucideIcon;
 }
 
-export interface SkillItem {
-  name: string;
-  /** 'core' items get visually highlighted */
-  level: 'core' | 'familiar' | 'learning';
-}
-
 export interface SkillGroup {
   title: string;
   summary: string;
-  items: SkillItem[];
+  items: string[];
   accent: 'cyan' | 'lime' | 'amber' | 'rose';
 }
 
@@ -59,5 +53,5 @@ export interface ProfileData {
   skillGroups: SkillGroup[];
   projects: Project[];
   strengths: string[];
-  socialLinks: SocialLink[];
+  socialLinks?: SocialLink[];
 }

@@ -5,15 +5,10 @@ import { ContactAction } from './ContactAction';
 import { Magnet } from './Magnet';
 import { SignalMap } from './SignalMap';
 import { SurfaceCard } from './SurfaceCard';
-import type { ContactType } from './ContactPanel';
 
-interface HeroSectionProps {
-  onOpenContact: (type: ContactType) => void;
-}
-
-export function HeroSection({ onOpenContact }: HeroSectionProps) {
+export function HeroSection() {
   return (
-    <section className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 gap-8 px-5 pb-14 pt-8 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+    <section className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 gap-8 px-5 pb-14 pt-20 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
       <div className="space-y-8">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
@@ -78,7 +73,7 @@ export function HeroSection({ onOpenContact }: HeroSectionProps) {
             inactiveTransition="transform 0.42s ease-in-out"
             wrapperClassName="magnet-wrap"
           >
-            <ContactAction type="email" onOpen={onOpenContact} />
+            <ContactAction type="email" />
           </Magnet>
           <Magnet
             padding={90}
@@ -87,7 +82,7 @@ export function HeroSection({ onOpenContact }: HeroSectionProps) {
             inactiveTransition="transform 0.42s ease-in-out"
             wrapperClassName="magnet-wrap"
           >
-            <ContactAction type="phone" onOpen={onOpenContact} />
+            <ContactAction type="phone" />
           </Magnet>
         </motion.div>
 

@@ -1,5 +1,5 @@
-import { ArrowUpRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { ContactPanel, type ContactType } from './components/ContactPanel';
 import { HeroSection } from './components/HeroSection';
 import { ProfileSection } from './components/ProfileSection';
@@ -18,6 +18,26 @@ function App() {
   });
   const [contactPanelOpen, setContactPanelOpen] = useState(false);
   const [initialContactType, setInitialContactType] = useState<ContactType>('email');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
+  const sectionIds = ['profile', 'skills', 'projects'];
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { rootMargin: '-40% 0px -55% 0px' },
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -42,22 +62,31 @@ function App() {
           </a>
           <div className="hidden items-center gap-1 md:flex">
             {[
-              ['个人信息', '#profile'],
-              ['技术栈', '#skills'],
-              ['项目经历', '#projects'],
-              ['联系', 'contact'],
-            ].map(([label, href]) => (
+              ['个人信息', '#profile', 'profile'],
+              ['技术栈', '#skills', 'skills'],
+              ['项目经历', '#projects', 'projects'],
+              ['联系', 'contact', ''],
+            ].map(([label, href, sectionId]) => (
               href === 'contact' ? (
                 <button key={label} type="button" className="nav-link nav-button" onClick={() => openContactPanel('email')}>
                   {label}
                 </button>
               ) : (
-                <a key={label} href={href} className="nav-link">
+                <a key={label} href={href} className={`nav-link ${activeSection === sectionId ? 'nav-link-active' : ''}`}>
                   {label}
                 </a>
               )
             ))}
           </div>
+          <button
+            type="button"
+            className="mobile-menu-toggle md:hidden"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            aria-label={mobileMenuOpen ? '关闭菜单' : '打开菜单'}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
           <div className="flex items-center gap-2">
             <ThemeToggle theme={theme} onToggle={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))} />
             <button type="button" className="top-cta" onClick={() => openContactPanel('email')}>
@@ -68,8 +97,41 @@ function App() {
         </nav>
       </header>
 
+      {mobileMenuOpen && (
+        <div className="mobile-menu-overlay" role="presentation" onClick={() => setMobileMenuOpen(false)}>
+          <nav className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+            {[
+              ['个人信息', '#profile'],
+              ['技术栈', '#skills'],
+              ['项目经历', '#projects'],
+              ['联系', 'contact'],
+            ].map(([label, href]) => (
+              href === 'contact' ? (
+                <button
+                  key={label}
+                  type="button"
+                  className="mobile-menu-link"
+                  onClick={() => { setMobileMenuOpen(false); openContactPanel('email'); }}
+                >
+                  {label}
+                </button>
+              ) : (
+                <a
+                  key={label}
+                  href={href}
+                  className="mobile-menu-link"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {label}
+                </a>
+              )
+            ))}
+          </nav>
+        </div>
+      )}
+
       <main>
-        <HeroSection onOpenContact={openContactPanel} />
+        <HeroSection />
         <ProfileSection />
         <TechStackSection />
         <ProjectsSection />

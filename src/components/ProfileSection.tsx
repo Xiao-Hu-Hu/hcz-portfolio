@@ -11,7 +11,6 @@ export function ProfileSection() {
         <SectionTitle
           eyebrow="Profile"
           title="个人信息与教育背景"
-          description="把招聘方最关心的信息放在可快速扫描的位置：身份、到岗周期、教育经历、协作和学习能力。"
         />
       </ScrollReveal>
 
