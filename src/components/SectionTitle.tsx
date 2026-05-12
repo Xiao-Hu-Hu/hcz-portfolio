@@ -1,7 +1,7 @@
 interface SectionTitleProps {
   eyebrow: string;
   title: string;
-  description: string;
+  description?: string;
 }
 
 export function SectionTitle({ eyebrow, title, description }: SectionTitleProps) {
@@ -11,7 +11,7 @@ export function SectionTitle({ eyebrow, title, description }: SectionTitleProps)
         <p className="text-sm uppercase text-cyanx/80">{eyebrow}</p>
         <h2 className="mt-2 text-3xl font-semibold text-white md:text-4xl">{title}</h2>
       </div>
-      <p className="max-w-xl text-sm leading-7 text-white/56 md:text-base">{description}</p>
+      {description && <p className="max-w-xl text-sm leading-7 text-white/56 md:text-base">{description}</p>}
     </div>
   );
 }
