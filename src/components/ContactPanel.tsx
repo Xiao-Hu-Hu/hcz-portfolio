@@ -88,9 +88,8 @@ export function ContactPanel({ open, initialType = 'email', onClose }: ContactPa
         <div className="contact-method-grid">
           {(Object.keys(methods) as ContactType[]).map((type) => {
             const method = methods[type];
-            const active = initialType === type;
             return (
-              <article key={type} className={`contact-method-card ${active ? 'is-active' : ''}`}>
+              <article key={type} className="contact-method-card">
                 <div className="contact-method-icon">
                   <method.Icon size={20} />
                 </div>

@@ -55,9 +55,11 @@ function App() {
       <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/10 bg-ink/64 backdrop-blur-xl">
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
           <a href="#" className="flex items-center gap-3 text-sm font-medium text-white">
-            <span className="grid h-8 w-8 place-items-center rounded-md border border-white/12 bg-white/[0.05] text-cyanx">
-              HCZ
-            </span>
+            <img
+              src={`${import.meta.env.BASE_URL}xiaohu.png`}
+              alt={profile.name}
+              className="h-8 w-8 rounded-md border border-white/12 object-cover"
+            />
             <span>{profile.name}</span>
           </a>
           <div className="hidden items-center gap-1 md:flex">
